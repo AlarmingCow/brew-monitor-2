@@ -2,11 +2,13 @@
 <html>
 <head>
     <title>Most recent temperatures</title>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/bower-components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="assets/bower-components/d3/d3.js"></script>
+    <script type="text/javascript" src="assets/bower-components/metrics-graphics/dist/metricsgraphics.js"></script>
     <script type="text/javascript" src="//momentjs.com/downloads/moment.js"></script>
     <script type="text/javascript" src="assets/main.js"></script>
     <link href="assets/graph.css" rel="stylesheet"/>
+    <link href="assets/bower-components/metrics-graphics/dist/metricsgraphics.css" rel="stylesheet"/>
 </head>
 
 <body>

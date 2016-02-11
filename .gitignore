@@ -2,3 +2,5 @@
 .asscache
 .gradle/
 build/
+.gradletasknamecache
+grails-app/assets/javascripts/bower-components/**
