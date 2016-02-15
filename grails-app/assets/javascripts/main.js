@@ -5,7 +5,7 @@ var cToF = function(temp) {
 $(document).ready(function() {
     var updateTemp = function() {
         jQuery.ajax({
-            url: "/thermReadings.json?max=1&sort=time&order=desc",
+            url: "/thermReading?max=1&sort=time&order=desc",
             success: function(temps) {
                 jQuery("#most-recent-temp").text(Math.round(cToF(temps[0].temp)) + " ºF");
                 jQuery("#most-recent-temp-time").text(moment(temps[0].time).fromNow());
@@ -15,7 +15,7 @@ $(document).ready(function() {
     };
 
     var updateGraph = function() {
-        d3.json("/thermReadings.json?max=100", function (temps) {
+        d3.json("/thermReading/recent?minutesAgo=60", function (temps) {
             temps.forEach(function (d) {
                 d.time = d3.time.format.iso.parse(d.time);
                 d.temp = cToF(+d.temp);
