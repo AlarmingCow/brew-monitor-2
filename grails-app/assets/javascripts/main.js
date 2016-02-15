@@ -3,6 +3,21 @@ var cToF = function(temp) {
 };
 
 $(document).ready(function() {
+    jQuery('#event-form').submit(function(event) {
+        event.preventDefault();
+        var minutesAgo = parseInt(jQuery('#event-form-minutes-ago').val());
+        var formData = {
+            'title': jQuery('#event-form-title').val(),
+            'time': moment().subtract(minutesAgo, 'minutes').valueOf()
+        };
+        jQuery.ajax({
+            type: "POST",
+            url: '/events',
+            data: JSON.stringify(formData),
+            contentType: 'application/json'
+        });
+    });
+
     var updateTemp = function() {
         jQuery.ajax({
             url: "/thermReading?max=1&sort=time&order=desc",
@@ -20,17 +35,23 @@ $(document).ready(function() {
                 d.time = d3.time.format.iso.parse(d.time);
                 d.temp = cToF(+d.temp);
             });
-            MG.data_graphic({
-                title: "Temperature (ºC)",
-                data: temps,
-                width: 1000,
-                height: 500,
-                min_y_from_data: true,
-                target: '#graph',
-                transition_on_update: false,
-                x_accessor: 'time',
-                y_accessor: 'temp',
-                interpolate_tension: 0.9
+            d3.json("/event/recent?minutesAgo=60", function (events) {
+                var markers = events.map(function (event) {
+                    return {'label': event.title, 'time': new Date(event.time)};
+                });
+                MG.data_graphic({
+                    title: "Temperature (ºC)",
+                    data: temps,
+                    width: 1000,
+                    height: 500,
+                    min_y_from_data: true,
+                    target: '#graph',
+                    transition_on_update: false,
+                    x_accessor: 'time',
+                    y_accessor: 'temp',
+                    interpolate_tension: 0.9,
+                    markers: markers
+                });
             });
         });
     };

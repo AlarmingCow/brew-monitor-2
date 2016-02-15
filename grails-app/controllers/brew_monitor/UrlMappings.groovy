@@ -14,5 +14,6 @@ class UrlMappings {
         "404"(view:'/notFound')
 
         "/thermReadings"(resources:'thermReading')
+        "/events"(resources:'event')
     }
 }

@@ -15,6 +15,13 @@
     <div id="content">
         <div id="most-recent-temp"></div>
         <div id="most-recent-temp-time"></div>
+        <br/>
+        <form id="event-form">
+            Add an event: <br/>
+            <input id="event-form-title" type="text" name="title"/>
+            <input id="event-form-minutes-ago" type="text" name="minutes-ago" value="0"/> Minutes ago
+            <button>Add Event</button>
+        </form>
         <dif id="graph"></dif>
     </div>
 </body>
