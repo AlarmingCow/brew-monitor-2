@@ -5,16 +5,27 @@ var cToF = function(temp) {
 $(document).ready(function() {
     jQuery('#event-form').submit(function(event) {
         event.preventDefault();
-        var minutesAgo = parseInt(jQuery('#event-form-minutes-ago').val());
+        var titleField = jQuery('#event-form-title');
+        var minutesAgoField = jQuery('#event-form-minutes-ago');
+
+        var minutesAgo = 0;
+        var minutesAgoFieldVal = minutesAgoField.val();
+        if (minutesAgoFieldVal) {
+            minutesAgo = parseInt(minutesAgoFieldVal);
+        }
         var formData = {
-            'title': jQuery('#event-form-title').val(),
+            'title': titleField.val(),
             'time': moment().subtract(minutesAgo, 'minutes').valueOf()
         };
         jQuery.ajax({
             type: "POST",
             url: '/events',
             data: JSON.stringify(formData),
-            contentType: 'application/json'
+            contentType: 'application/json',
+            success: function() {
+                titleField.val("");
+                minutesAgoField.val("");
+            }
         });
     });
 
@@ -42,8 +53,8 @@ $(document).ready(function() {
                 MG.data_graphic({
                     title: "Temperature (ºC)",
                     data: temps,
-                    width: 1000,
-                    height: 500,
+                    full_width: true,
+                    height: 600,
                     min_y_from_data: true,
                     target: '#graph',
                     transition_on_update: false,
